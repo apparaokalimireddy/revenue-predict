@@ -6,5 +6,8 @@ df<-loadAndPrepare("wine21.csv")
 library(ggplot2)
 library(scales)
 
-simple<-qplot(x = df$Day, y = df$Revenues, geom="point", xlab="Day", ylab="Revenues")
+simple <- qplot(x = df$Day, y = df$Revenues, geom="point", ylab="Revenues") 
+simple <- simple + scale_y_continuous(name = "Revenues", labels = dollar) 
+simple <- simple + scale_x_continuous(name = "Day")
+
 
