@@ -34,4 +34,11 @@ simple_eq <- paste("Y = ", round(simple_reg_stats$coefficients[1]), " + ", round
 df_fourth_simple<-fourthWeekSimple(simple_reg_stats, df$Date[21]+1)
 
 #If residuals are highly auto autocorrelated, it means there is a potential seanoality that is missed in the model
-# use acf function?
+# Typically auto correlation of greater than .30 means it highly correlated, hence not a
+# good regression model.
+autocorr <- cor(x=simple_reg_stats$residuals[1:20], y=simple_reg_stats$residuals[2:21])
+
+# Create residual plot - If you notice a visible pattern not a good indication
+r_plot <- qplot(df$Day, simple_reg_stats$residuals, ylab="Residuals", xlab="Day") + geom_abline(aes(slope=0,intercept=0))
+# Create histogram of residuals, if it doesn't look "normal", not good.
+hist <- qplot(simple_reg_stats$residuals, geom="histogram",binwidth=1000000)
