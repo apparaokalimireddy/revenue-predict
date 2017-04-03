@@ -1,5 +1,6 @@
 rm(list=ls())
 if(!exists("loadAndPrepare", mode="function")) source("loadAndPrepare.R")
+if(!exists("fourthWeekSimple", mode="function")) source("simpleAnalysis.R")
 df<-loadAndPrepare("wine21.csv")
 
 # Simple Analysis
@@ -29,5 +30,8 @@ df_simple <- data.frame(df , fitted.value= fitted (simple_reg_stats), residual= 
 # Model equation (equation representing the trendline)
 simple_eq <- paste("Y = ", round(simple_reg_stats$coefficients[1]), " + ", round(simple_reg_stats$coefficients[2]), "X", sep = "")
 
-# Based on this equation/model, our fourth week prediction would be
+# Based on this equation/model, our fourth week prediction would be:
+df_fourth_simple<-fourthWeekSimple(simple_reg_stats, df$Date[21]+1)
 
+#If residuals are highly auto autocorrelated, it means there is a potential seanoality that is missed in the model
+# use acf function?
