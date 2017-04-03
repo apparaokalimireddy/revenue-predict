@@ -7,12 +7,12 @@ library(ggplot2)
 library(scales)
 
 # Running simple regression, gives us the overall trend of revenues.
-# Todo: It would be nice to have color regions to indicate holidays and weekends
-simple <- qplot(x = df$Day, y = df$Revenues, geom="point", ylab="Revenues") 
+# Todo: It would be nice to have color regions to indicate holidays and weekends, color?
+simple <- qplot(x = df$Day, y = df$Revenues, geom="point", ylab="Revenues") + geom_line()
 simple <- simple + scale_y_continuous(name = "Revenues", labels = dollar) 
 simple <- simple + scale_x_continuous(name = "Day", 
-                                      breaks = round(seq(min(df$Day), max(df$Day), by = 1),1))
-simple <- simple + geom_smooth(method = "lm", se=FALSE, color="blue", aes(group=1))
+                                      breaks = round(seq(min(df$Day), max(df$Day), by = 2),2))
+simple <- simple + geom_smooth(method = "lm", se=FALSE, color="blue")
 
 # As is evident from the chart, simple regression misses the effect of 
 # seasonality (holidays and weekends) on revenues, there by trendline 
