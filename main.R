@@ -58,13 +58,12 @@ df$PredictedRevenues<-exp(fitted(mr_model))
 # Check autocorrelation of residuals. Less than 0.3 is good
 autocorr_mr <- cor(x=mr_model$residuals[1:nrow(df)-1], y=mr_model$residuals[2:nrow(df)])
 # Based on this equation/model, calculate predicted values
-df_pmr<-predictRevenuesMR(mr_model, df)
+df_pmr<-predictRevenues(mr_model, df, multipleReg = TRUE)
 # Create residual plot - If you notice a visible pattern not a good indication
 mr_residual_plot <- qplot(df$Day, mr_model$residuals, ylab="Residuals", xlab="Day") + geom_abline(aes(slope=0,intercept=0))
 # Create histogram of residuals, if it doesn't look "normal", not good.
 mr_hist <- qplot(mr_model$residuals, geom="histogram", binwidth=0.1)
 # Plot the Actual and Predcited Revenues
-#multiple <- qplot(x = df_pmr$Day, y = df_pmr$PredictedRevenues, geom="point", ylab="Revenues", color="orange") + geom_line()
 multiple <- qplot(x = df_pmr$Day, ylab="Revenues") + geom_line(aes(y = df_pmr$Revenues, color = "Actual")) + geom_line(aes(y = df_pmr$PredictedRevenues, color = "Predicted"))+geom_point(aes(y = df_pmr$Revenues, color="Actual")) +geom_point(aes(y = df_pmr$PredictedRevenues, color="Predicted"))
 multiple <- multiple + scale_y_continuous(name = "Revenues", labels = dollar) 
 multiple <- multiple + scale_x_continuous(name = "Day", breaks = round(seq(min(df_pmr$Day), max(df_pmr$Day), by = 2),2))
