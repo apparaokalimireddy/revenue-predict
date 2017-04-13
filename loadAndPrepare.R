@@ -13,6 +13,5 @@ setDummyVariables <- function(df) {
   df$Sunday=ifelse(weekdays(df$Date)=="Sunday",TRUE,FALSE)
   df$Holiday<-checkForHoliday(df$Date)
   df = checkDayBeforeHoliday(df)
-  #Need to figure  out how to set day before holiday to TRUE
   df
 }
