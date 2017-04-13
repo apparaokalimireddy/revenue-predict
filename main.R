@@ -2,7 +2,7 @@ rm(list=ls())
 library(ggplot2)
 library(scales)
 if(!exists("loadAndPrepare", mode="function")) source("loadAndPrepare.R")
-if(!exists("predictRevenues", mode="function")) source("simpleRegressionAnalysis.R")
+if(!exists("predictRevenues", mode="function")) source("regressionAnalysis.R")
 df<-loadAndPrepare("wine21.csv")
 
 ###########################
